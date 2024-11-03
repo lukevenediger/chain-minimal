@@ -1,0 +1,21 @@
+# Options for analysis running. See https://golangci-lint.run/usage/configuration/ for config options.
+run:
+  timeout: 5m
+issues:
+  max-issues-per-linter: 0 # infinite
+  max-same-issues: 0 # infinite
+  fix: true
+linters:
+  enable:
+    - whitespace
+    - misspell
+    - goimports
+linters-settings:
+  misspell:
+    locale: US
+  goimports:
+    # Put imports beginning with prefix after 3rd-party packages.
+    # It's a comma-separated list of prefixes.
+    local-prefixes: github.com/lukevenediger/chain-minimal
+severity:
+  default-severity: error

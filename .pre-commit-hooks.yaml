@@ -1,0 +1,16 @@
+- id: golangci-lint
+  name: golangci-lint
+  description: Fast linters runner for Go. Note that only modified files are linted, so linters like 'unused' that need to scan all files won't work as expected.
+  entry: golangci-lint run --new-from-rev HEAD --fix
+  types: [go]
+  language: golang
+  require_serial: true
+  pass_filenames: false
+- id: go-fmt
+  name: go-fmt
+  description: Runs go fmt on all Go files.
+  entry: go fmt ./...
+  types: [go]
+  language: system
+  require_serial: true
+  pass_filenames: false
