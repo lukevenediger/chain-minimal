@@ -40,9 +40,5 @@ init:
 minid-list-wallets:
 	minid keys list --keyring-backend test
 
-minid-create-game:
-	@ALICE_WALLET=$(minid keys list --keyring-backend test --output json | jq -r '.[] | select(.name == "alice") | .address')
-	@BOB_WALLET=$(minid keys list --keyring-backend test --output json | jq -r '.[] | select(.name == "bob") | .address')
-	@minid tx checkers create $$GAME_ID $$ALICE_WALLET $$BOB_WALLET \
-		--from alice
-		--yes
+minid-export-state:
+	minid export | jq '.app_state["checkers-torram"]

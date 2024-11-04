@@ -1,3 +1,6 @@
 minid
 debug_container.dot
 debug_container.log
+
+# VS Code debug configuration
+.vscode/launch.json

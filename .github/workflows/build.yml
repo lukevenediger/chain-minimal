@@ -13,10 +13,9 @@ jobs:
     name: mini ${{ matrix.arch }} for ${{ matrix.targetos }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4.1.0
+      - uses: actions/setup-go@v5
         with:
           go-version: "1.21"
-          check-latest: true
         env:
           GOOS: ${{ matrix.targetos }}
           GOARCH: ${{ matrix.arch }}
@@ -27,7 +26,7 @@ jobs:
           cd cmd/minid
           go build .
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: minid ${{ matrix.targetos }} ${{ matrix.arch }}
           path: cmd/minid/minid
