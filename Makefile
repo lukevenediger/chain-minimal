@@ -29,6 +29,8 @@ replace-gomod-checkers:
 restore-gomod-checkers:
 	@echo "--> restoring checkers module in go.mod"
 	@go mod edit -dropreplace github.com/lukevenediger/checkers
+	@go get github.com/lukevenediger/checkers@main
+
 
 ###########
 # Install #
