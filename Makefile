@@ -18,6 +18,18 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=mini \
 
 BUILD_FLAGS := -ldflags '$(ldflags)'
 
+###############
+# Local Setup #
+###############
+
+replace-gomod-checkers:
+	@echo "--> replacing checkers module in go.mod"
+	@go mod edit -replace github.com/lukevenediger/checkers=../checkers-minimal/
+
+restore-gomod-checkers:
+	@echo "--> restoring checkers module in go.mod"
+	@go mod edit -dropreplace github.com/lukevenediger/checkers
+
 ###########
 # Install #
 ###########
