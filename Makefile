@@ -51,8 +51,6 @@ init:
 # Testing #
 ###########
 
-minid-list-wallets:
-	minid keys list --keyring-backend test
-
-minid-export-state:
-	minid export | jq '.app_state["checkers-torram"]
+test:
+	@echo "--> Running tests"
+	go test -v ./...
