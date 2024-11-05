@@ -33,7 +33,10 @@ type fixture struct {
 func initFixture(t testing.TB) *fixture {
 	keys := storetypes.NewKVStoreKeys(checkers.StoreKey)
 	cdc := moduletestutil.MakeTestEncodingConfig(auth.AppModuleBasic{}).Codec
-	logger := log.NewTestLogger(t)
+
+	// Use log.NewTestLogger(t) if you need to debug a test failure
+	logger := log.NewNopLogger()
+
 	cms := integration.CreateMultiStore(keys, logger)
 	newCtx := sdk.NewContext(cms, cmtproto.Header{}, true, logger)
 	authority := authtypes.NewModuleAddress("gov")
@@ -87,8 +90,8 @@ func TestCannotCreateSameGameTwice(t *testing.T) {
 	msg := checkers.ReqCheckersTorram{
 		Creator: f.addrPlayers[0].String(),
 		Index:   "game1",
-		Black:   f.addrPlayers[1].String(),
-		Red:     f.addrPlayers[2].String(),
+		Black:   f.addrPlayers[0].String(),
+		Red:     f.addrPlayers[1].String(),
 	}
 
 	// First game creation
@@ -109,4 +112,27 @@ func TestCannotCreateSameGameTwice(t *testing.T) {
 		integration.WithAutomaticCommit(),
 	)
 	assert.ErrorContains(t, err, "duplicate game index")
+}
+
+func TestOpponentsCannotBeTheSamePlayer(t *testing.T) {
+	t.Parallel()
+
+	f := initFixture(t)
+	f.ctx = f.ctx.WithIsCheckTx(false).WithBlockHeight(1)
+
+	// New Game message
+	msg := checkers.ReqCheckersTorram{
+		Creator: f.addrPlayers[0].String(),
+		Index:   "game1",
+		Black:   f.addrPlayers[0].String(),
+		Red:     f.addrPlayers[0].String(),
+	}
+
+	// First game creation
+	_, err := f.app.RunMsg(
+		&msg,
+		integration.WithAutomaticFinalizeBlock(),
+		integration.WithAutomaticCommit(),
+	)
+	assert.ErrorContains(t, err, "cannot play against self")
 }
