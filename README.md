@@ -93,3 +93,7 @@ For scripts running transactions, it will wait for the transaction to be include
 | Forfeit a Game | `scripts/minid-forfeit-game.sh <game-id>` | Forfeits the game with `<game-id>`, signed by Alice. |
 | Get a Game | `scripts/minid-get-game.sh <game-id>` | Retrieves the game state for `<game-id>`. |
 | Export Game State | `scripts/minid-export-game.sh` | Exports the game state to a file. <br/>**Note:** Ensure the chain is not running, or it will fail with a database initialization error. |
+
+## Contributing
+
+Interested in contributing to this project? Check out our [Contribution Guidelines](CONTRIBUTING.md) for more information.
