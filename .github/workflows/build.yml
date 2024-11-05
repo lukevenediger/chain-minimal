@@ -47,10 +47,6 @@ jobs:
           GOOS: ${{ matrix.targetos }}
           GOARCH: ${{ matrix.arch }}
 
-      - name: Remove local replace directive
-        run: |
-          make restore-gomod-checkers
-
       - name: Compile mini
         run: |
           go mod download
