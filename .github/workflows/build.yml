@@ -50,7 +50,7 @@ jobs:
       - name: Compile mini
         run: |
           go mod download
-          cd cmd/minid
+          cd ${{github.workspace}}/cmd/minid
           go build .
 
       - uses: actions/upload-artifact@v4
